@@ -23,7 +23,33 @@ int	exeption(char const *format)
 
 void	ft_process_specifier(const char *format, int *ret, int *i)
 {
+	int	dot;
+
+	dot = 0;
 	(*i)++;
+	while (format[*i] && (format[*i] == 'c' || format[*i] == 's' || format[*i] == 'p' ||
+			format[*i] == 'd' || format[*i] == 'i' || format[*i] == 'o' ||
+			format[*i] == 'u' || format[*i] == 'x' || format[*i] == 'X'))
+	{
+		if (format[*i] == '.')
+			dot = 1;
+		(*i)++;
+	}
+	type_specifier(&format[*i], );
+	(*i)--;
+	if (format[*i] == 'h' || format[*i] == 'l' || format[*i] == 'j'
+		|| format[*i] == 'z' || format[*i] == 't' || format[*i] == 'L')
+		size_specifier(format[*i], );
+	(*i)--;
+	if (format[*i] == 'l' || format[*i] == 'h')
+		(*i)--;
+	if (dot)
+	{
+		while(format[*i] != '.')
+			(*i)--;
+		width_specifier();
+	}
+	(*i)--;
 	
 }
 
