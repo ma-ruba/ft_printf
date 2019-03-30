@@ -26,7 +26,6 @@ void	process_specifier(char *format, int *ret, int *i)
 	int	dot;
 
 	dot = 0;
-	(*i)++;
 	while (format[*i] && (format[*i] == 'c' || format[*i] == 's' || format[*i]
 			== 'p' || format[*i] == 'd' || format[*i] == 'i' || format[*i] ==
 			'o' || format[*i] == 'u' || format[*i] == 'x' || format[*i] == 'X'))
@@ -40,31 +39,36 @@ void	process_specifier(char *format, int *ret, int *i)
 	if (format[*i] == 'h' || format[*i] == 'l' || format[*i] == 'j'||
 		format[*i] == 'z' || format[*i] == 't' || format[*i] == 'L')
 	{
-		size_specifier(format[*i], );
 		if (format[*i - 1] == 'l' || format[*i - 1] == 'h')
 			(*i)--;
+		size_specifier(format[*i], );
 		format[*i] = '\0';
 	}
 	if (dot)
 	{
 		while(format[*i] != '.')
 			(*i)--;
-		precise_specifier(ft_atoi((char*)format[*i + 1], );
+		precise_specifier(format[*i + 1], );
 		format[*i] = '\0';
 	}
-	while (format[*i] != '%' || format[*i] != '0' || format[*i] != '#' ||
-			format[*i] != '+' || format[*i] != '-')
-			(*i)--;
-		width_specifier(ft_atoi((char*)format[*i + 1], );
-	                                        
+	while (format[*i] != '%')
+		(*i)--;
+	(*i)++;
+	while (format[*i] == '0' || format[*i] == '#' || format[*i] == '+'
+			|| format[*i] == '-'))
+	{
+		flag_specifier(&format[*i], );
+		(*i)++;
+	}
+	width_specifier(format[*i], );
 }
 
-void	print_and_smth(const char *format, va_list *ap, int *ret) //25
+void	print_and_smth(const char *format, va_list *ap, int *ret) //25 don't forget to delete memory allocated for copy
 {
 	int		i;
 	char	*copy;
 
-	copy = ft_strcpy(copy, (char*)format);
+	copy = ft_strcpy(copy, format);
 	i = 0;
 	while (format[i])
 	{
