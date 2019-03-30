@@ -10,8 +10,9 @@ int	    ft_printf(const char *format, ...);
 void	print_and_smth(const char *format, va_list *ap, int *ret);
 int	    exeption(char const *format);
 void	process_specifier(const char *format, int *ret, int *i);
+void    find_flag_specificator(char const format, int *ret, int *i);
 void    type_specifier(char c, );
 void    size_specifier(char *c, );
-void    width_specifier();
+void    precise_specifier(int nb, );
 
 #endif
