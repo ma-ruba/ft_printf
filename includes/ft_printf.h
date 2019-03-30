@@ -7,8 +7,11 @@
 # include "libft.h"
 
 int	    ft_printf(const char *format, ...);
-void	ft_print_and_smth(const char *format, va_list *ap, int *ret);
+void	print_and_smth(const char *format, va_list *ap, int *ret);
 int	    exeption(char const *format);
-void	ft_process_specifier(const char *format, int *ret, int *i);
+void	process_specifier(const char *format, int *ret, int *i);
+void    type_specifier(char c, );
+void    size_specifier(char *c, );
+void    width_specifier();
 
 #endif
