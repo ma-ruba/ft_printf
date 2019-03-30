@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-int		ft_find_specifier(const char *format)
+int		find_specifier(const char *format)
 {
 	int	i;
 
@@ -10,7 +10,7 @@ int		ft_find_specifier(const char *format)
 	return (0);
 }
 
-int	exeption(char const *format)
+int		exeption(char const *format)
 {
 	int	i;
 
@@ -21,15 +21,15 @@ int	exeption(char const *format)
 		return (0);
 }
 
-void	ft_process_specifier(const char *format, int *ret, int *i)
+void	process_specifier(char *format, int *ret, int *i)
 {
 	int	dot;
 
 	dot = 0;
 	(*i)++;
-	while (format[*i] && (format[*i] == 'c' || format[*i] == 's' || format[*i] == 'p' ||
-			format[*i] == 'd' || format[*i] == 'i' || format[*i] == 'o' ||
-			format[*i] == 'u' || format[*i] == 'x' || format[*i] == 'X'))
+	while (format[*i] && (format[*i] == 'c' || format[*i] == 's' || format[*i]
+			== 'p' || format[*i] == 'd' || format[*i] == 'i' || format[*i] ==
+			'o' || format[*i] == 'u' || format[*i] == 'x' || format[*i] == 'X'))
 	{
 		if (format[*i] == '.')
 			dot = 1;
@@ -37,31 +37,39 @@ void	ft_process_specifier(const char *format, int *ret, int *i)
 	}
 	type_specifier(&format[*i], );
 	(*i)--;
-	if (format[*i] == 'h' || format[*i] == 'l' || format[*i] == 'j'
-		|| format[*i] == 'z' || format[*i] == 't' || format[*i] == 'L')
+	if (format[*i] == 'h' || format[*i] == 'l' || format[*i] == 'j'||
+		format[*i] == 'z' || format[*i] == 't' || format[*i] == 'L')
+	{
 		size_specifier(format[*i], );
-	(*i)--;
-	if (format[*i] == 'l' || format[*i] == 'h')
-		(*i)--;
+		if (format[*i - 1] == 'l' || format[*i - 1] == 'h')
+			(*i)--;
+		format[*i] = '\0';
+	}
 	if (dot)
 	{
 		while(format[*i] != '.')
 			(*i)--;
-		width_specifier();
+		precise_specifier(ft_atoi((char*)format[*i + 1], );
+		format[*i] = '\0';
 	}
-	(*i)--;
-	
+	while (format[*i] != '%' || format[*i] != '0' || format[*i] != '#' ||
+			format[*i] != '+' || format[*i] != '-')
+			(*i)--;
+		width_specifier(ft_atoi((char*)format[*i + 1], );
+	                                        
 }
 
-void	ft_print_and_smth(const char *format, va_list *ap, int *ret) //23
+void	print_and_smth(const char *format, va_list *ap, int *ret) //25
 {
-	int	i;
+	int		i;
+	char	*copy;
 
+	copy = ft_strcpy(copy, (char*)format);
 	i = 0;
 	while (format[i])
 	{
-		if (ft_find_specifier(format))
-			ft_process_specifier(format, ret, &i);
+		if (find_specifier(format))
+			process_specifier(copy, ret, &i);
 		else
 		{
 			if (exeption(format))
@@ -87,7 +95,7 @@ int		ft_printf(const char *format, ...)
 
 	*ret = 0;
 	va_start(ap, format);
-	ft_print_and_smth(format, &ap, ret);
+	print_and_smth(format, &ap, ret);
 	va_end(ap);
 	return (*ret);
 }
