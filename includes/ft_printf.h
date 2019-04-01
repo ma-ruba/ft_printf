@@ -6,13 +6,18 @@
 # include <stdlib.h>
 # include "libft.h"
 
+int     ret;
+int     i;
+
 int	    ft_printf(const char *format, ...);
-void	print_and_smth(const char *format, va_list *ap, int *ret);
+void	print_and_smth(const char *format, va_list *ap);
 int	    exeption(char const *format);
-void	process_specifier(const char *format, int *ret, int *i);
-void    find_flag_specificator(char const format, int *ret, int *i);
-void    type_specifier(char c, );
-void    size_specifier(char *c, );
-void    precise_specifier(int nb, );
+void	process_specifier(char *format, va_list *ap);
+char    *type_specifier(char c, va_list *ap);
+void    size_specifier(char *c, char *res);
+void    width_specifier(char *c, char *res);
+void    precise_specifier(char *c, char *res);
+void    flag_specifier(char c, char *res);
+void    print_param(char *res);
 
 #endif
