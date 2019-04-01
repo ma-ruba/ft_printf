@@ -21,7 +21,7 @@ int		exeption(char const *format)
 		return (0);
 }
 
-void	print_and_smth(const char *format, va_list *ap) //25 don't forget to delete memory allocated for copy
+void	print_and_smth(const char *format, va_list *ap) //25
 {
 	char	*copy;
 
