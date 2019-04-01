@@ -5,6 +5,7 @@ void	process_specifier(char *format, va_list *ap)
 	int		dot;
 	int		j;
 	char	*res;
+	t_type  type;
 
 	dot = 0;
 	while (format[i] && (format[i] == 'c' || format[i] == 's' || format[i]
@@ -18,7 +19,7 @@ void	process_specifier(char *format, va_list *ap)
 	}
 	j = i;
 	i++;
-	res = type_specifier(&format[j], ap);
+	res = type_specifier(&format[j], ap, &type);
 	format[j--] = '\0';
 	if (format[j] == 'h' || format[j] == 'l' || format[j] == 'L')
 	{
@@ -31,7 +32,7 @@ void	process_specifier(char *format, va_list *ap)
 	{
 		while(format[j] != '.')
 			j--;
-		precise_specifier(format[j + 1], res);
+		precise_specifier(format[j + 1], res, &type);
 		format[j] = '\0';
 	}
 	while (format[j - 1] != '%')
@@ -42,20 +43,21 @@ void	process_specifier(char *format, va_list *ap)
 		flag_specifier(&format[j], res);
 		j++;
 	}
-	if (format[j] <= '9' && format[j] >= '1')
+	if ((format[j] <= '9' && format[j] >= '1') || format[j] == '*')
 		width_specifier(format[j], res);
-    print_param(res);
+	print_param(res);
+	free((char*)res);
 }
 
 void    print_param(char *res)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (res[i])
-    {
-        write(1, &res[i], 1);
-        i++;
-        ret++;
-    }
+	i = 0;
+	while (res[i])
+	{
+		write(1, &res[i], 1);
+		i++;
+		ret++;
+	}
 }

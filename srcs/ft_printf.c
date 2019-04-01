@@ -25,7 +25,7 @@ void	print_and_smth(const char *format, va_list *ap) //25
 {
 	char	*copy;
 
-	copy = ft_strcpy(copy, format);
+	ft_strcpy(copy, format);
 	i = 0;
 	while (format[i])
 	{
