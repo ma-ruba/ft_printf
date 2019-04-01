@@ -32,7 +32,7 @@ void	process_specifier(char *format, va_list *ap)
 	{
 		while(format[j] != '.')
 			j--;
-		precise_specifier(format[j + 1], res, &type);
+		res = precise_specifier(format[j + 1], res, &type);
 		format[j] = '\0';
 	}
 	while (format[j - 1] != '%')
