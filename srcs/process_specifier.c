@@ -5,9 +5,10 @@ void	process_specifier(char *format, va_list *ap)
 	int		dot;
 	int		j;
 	char	*res;
-	t_type  type;
+	t_spec  spec;
 
 	dot = 0;
+	find_width_param(format[i], ap, &spec);
 	while (format[i] && (format[i] == 'c' || format[i] == 's' || format[i]
 			== 'p' || format[i] == 'd' || format[i] == 'i' || format[i] ==
 			'o' || format[i] == 'u' || format[i] == 'x' || format[i] == 'X'
@@ -15,11 +16,13 @@ void	process_specifier(char *format, va_list *ap)
 	{
 		if (format[i] == '.')
 			dot = 1;
+		if (format[i + 1] == '*')
+			spec.precision = va_arg(ap, int);
 		i++;
 	}
 	j = i;
 	i++;
-	res = type_specifier(&format[j], ap, &type);
+	res = type_specifier(&format[j], ap, &spec);
 	format[j--] = '\0';
 	if (format[j] == 'h' || format[j] == 'l' || format[j] == 'L')
 	{
@@ -47,6 +50,18 @@ void	process_specifier(char *format, va_list *ap)
 		width_specifier(format[j], res);
 	print_param(res);
 	free((char*)res);
+}
+
+void	find_width_param(char *format, va_list *ap, t_spec *spec)
+{
+	int	j;
+
+	j = 1;
+	while (format[j] == '0' || format[j] == '#' || format[j] == '+'
+			|| format[j] == '-'))
+		j++;
+	if (format[j] == '*')
+		spec->width = va_arg(ap, int);
 }
 
 void    print_param(char *res)
