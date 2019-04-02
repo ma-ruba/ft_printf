@@ -1,23 +1,19 @@
 #include "ft_printf.h"
 
-char    *precise_specifier(char *c, char *res, t_spec *spec)
+char    *precise_specifier(char *res, t_spec *spec)
 {
 	char    *ret;
 	
-	if (*c == '\0')
-		spec->precision = 0;
-	if (*c != '*' && *c != '\0')
-		spec->precision = ft_atoi((char*)c);
-	if (type->ch == 'f')
-		ret = f_precise(c, res, spec);
-	if (type->ch == 's')
-		ret = s_precise(c, res, spec);
+	if (spec->type == 'f')
+		ret = f_precise(res, spec);
+	if (spec->type == 's')
+		ret = s_precise(res, spec);
 	else
-		ret = other_precise(c, res, spec);
+		ret = other_precise(res, spec);
 	return (ret);
 }
 
-char    *other_precise(char *c, char *res, t_spec *spec)
+char    *other_precise(char *res, t_spec *spec)
 {
 	char    *ret;
 	int		len;
@@ -32,12 +28,13 @@ char    *other_precise(char *c, char *res, t_spec *spec)
 		while (i < spec->precision - len)
 			ret[i] = '0';
 		ft_strcpy(ret[i], (char*)res);
+		free((char*)res);
 		return (ret);
 	}
 	return (res);
 }
 
-char    *s_precise(char *c, char *res, t_spec *spec)
+char    *s_precise(char *res, t_spec *spec)
 {
 	char    *ret;
 
@@ -52,7 +49,7 @@ char    *s_precise(char *c, char *res, t_spec *spec)
 	return (res);
 }
 
-char    *f_precise(char *c, char *res, t_spec *spec)
+char    *f_precise(char *res, t_spec *spec)
 {
    int     i;
    char    *ret;

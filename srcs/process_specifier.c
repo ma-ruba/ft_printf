@@ -6,7 +6,6 @@ void	process_specifier(char *format, va_list *ap)
 	int		j;
 	char	*res;
 	t_spec  spec;
-	int		count_flag;
 
 	dot = 0;
 	count_flag = 0;
@@ -45,9 +44,8 @@ void	process_specifier(char *format, va_list *ap)
 	while (format[j] == '0' || format[j] == '#' || format[j] == '+'
 			|| format[j] == '-'))
 	{
-		flag_specifier(&format[j], res, &spec, &count_flag);
+		flag_specifier(&format[j], res, &spec);
 		j++;
-		count_flag++:
 	}
 	if ((format[j] <= '9' && format[j] >= '1') || format[j] == '*')
 		width_specifier(format[j], res, &spec);
@@ -78,4 +76,9 @@ void    print_param(char *res)
 		i++;
 		ret++;
 	}
+}
+
+void	process_specifier(char *format, va_list *ap)
+{
+
 }
