@@ -31,6 +31,7 @@ char    *other_precise(char *c, char *res, t_spec *spec)
 			return (NULL);
 		while (i < spec->precision - len)
 			ret[i] = '0';
+		ft_strcpy(ret[i], (char*)res);
 		return (ret);
 	}
 	return (res);
