@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-size_t		ft_digits(long long num, int base)
+static size_t		ft_digits(long long num, int base)
 {
 	size_t i;
 

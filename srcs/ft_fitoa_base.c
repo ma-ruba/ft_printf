@@ -1,60 +1,72 @@
 #include "ft_printf.h"
 
-size_t		ft_digits(long double num)
+static size_t		ft_digits(long double num)
 {
 	size_t i;
+	long long	n;
 
+	n = (int)num;
 	i = 0;
 	if (num == 0)
 		i = 1;
-	while (num)
+	while (n)
 	{
-		num /= base;
+		n /= 10;
 		i++;
 	}
 	return (i);
 }
 
-size_t  ft_dig_after_dot(long double num)
+static size_t  dig_after_dot(long double *num)
 {
     size_t  count;
+	long long	n;
+	long double	nb;
 
     count = 0;
-    while (num < 1)
+	n = (int)(*num);
+	nb = n;
+    while (nb < *num)
     {
-        num *= 10;
+        *num *= 10;
+		n = (int)(*num);
+		nb = n;
         count++;
     }
-    count--;
-    return (count)
+	return (count);
 }
 
-char	*ft_itoa_base(long double num)
+char	*ft_fitoa(long double num)
 {
 	char        *str;
 	long double nb;
 	size_t      i;
+	size_t		tmp;
+	size_t		dig;
+	long long	n;
 
-	
-    nb = num;
-	if (num == -9223372036854775807 - 1)
-		str = "-9223372036854775808";
-	i = ft_digits(num, base);
+	nb = num;
+	if (num < 0)
+		nb *= -1;
+    dig = dig_after_dot(&nb);
+	n = (int)nb;
+	i = ft_digits(nb) + 1;
+	tmp = i;
 	if (num < 0)
 		i++;
 	if(!(str = ft_strnew(i)))
 		return (NULL);
-	if (num < 0)
-		nb *= -1;
 	while(i-- > 0)
 	{
 		if (num < 0 && i == 0)
 			str[i] = '-';
-		else if (nb % base < 10)
-			str[i] = nb % base + '0';
-		else
-			str[i] = nb % base + 87;   
-		nb /= base;
+		else if (i < tmp - dig)
+		{
+			str[i] = '.';
+			i--;
+		}
+		str[i] = n % 10 + '0';
+		n /= 10;
 	}
 	return (str);
 }
