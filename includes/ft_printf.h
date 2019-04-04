@@ -32,5 +32,16 @@ char    *s_precise(char *c, char *res, t_spec *spec);
 char    *f_precise(char *c, char *res, t_spec *spec);
 char    *other_precise(char *c, char *res, t_spec *spec);
 void    call_specifier(va_list *ap, t_spec *spec, int flag);
+char    *type_ouxX(char *res, t_spec *spec, va_list *ap);
+char    *type_ouxX(char *res, t_spec *spec, va_list *ap);
+char    *type_s(char *res, va_list *ap);
+char	*type_p(char *res, va_list *ap);
+char	*type_f(char *res, va_list *ap);
+char    *type_id(char *res, va_list *ap);
+char	*zero_flag(char *res);
+char	*minus_flag(char *res);
+char	*plus_flag(char *res);
+char	*hash_flag(char *res);
+char	*space_flag(char *res, t_spec *spec);
 
 #endif
