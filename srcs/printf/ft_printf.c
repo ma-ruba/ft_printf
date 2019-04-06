@@ -24,14 +24,16 @@ int		exeption(char const *format)
 void	print_and_smth(const char *format, va_list *ap) //25
 {
 	char	*copy;
+	size_t		len;
 
-	copy = NULL;
+	len = ft_strlen(format);
+	copy = ft_strnew(len);
 	ft_strcpy(copy, format);
 	i = 0;
 	while (format[i])
 	{
-		if (find_specifier(format))
-			process_specifier(copy, ap);
+		if (find_specifier(&format[i]))
+			process_specifier(&copy[i], ap);
 		else
 		{
 			if (exeption(format))
