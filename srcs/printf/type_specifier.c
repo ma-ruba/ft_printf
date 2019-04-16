@@ -6,18 +6,18 @@ char    *type_specifier(t_spec *spec, va_list *ap)
 
 	res = NULL;
 	if (spec->type == 'c')
-		type_c(res, ap);
+		res = type_c(res, ap);
 	if (spec->type == 's')
-		type_s(res, ap);
+		res = type_s(res, ap);
 	if (spec->type == 'p')
-		type_p(res, ap, spec);
+		res = type_p(res, ap, spec);
 	if (spec->type == 'o' || spec->type == 'u'
 		|| spec->type == 'x' || spec->type == 'X')
-		type_ouxX(res, spec, ap);
+		res = type_ouxX(res, spec, ap);
 	if (spec->type == 'f')
-		type_f(res, ap, spec);
+		res = type_f(res, ap, spec);
 	if (spec->type == 'i' || spec->type == 'd')
-		type_id(res, ap, spec);
+		res = type_id(res, ap, spec);
 	return (res);
 }
 
@@ -71,23 +71,39 @@ char    *type_s(char *res, va_list *ap)
 	return (res);
 }
 
-char	*type_p(char *res, va_list *ap, t_spec *spec) //???
+char	*type_p(char *res, va_list *ap, t_spec *spec)
 {
-	int	nb;
+	long	nb;
+	char	*ret;
+	int		len;
 
-	nb = va_arg(*ap, int);
+	nb = va_arg(*ap, long);
 	res = ft_itoa_base(nb, 16, spec);
-	return (res);
+	len = (int)ft_strlen((char*)res);
+	if (!(ret = ft_strnew(len + 2)))
+		return (NULL);
+	ret[0] = '0';
+	ret[1] = 'x';
+	ft_strcpy(&ret[2], (char*)res);
+	free((char*)res);
+	return (ret);
 }
 
 char	*type_f(char *res, va_list *ap, t_spec *spec)
 {
 	long double	nb;
+	double		n;
 
 	if (spec->size[0] == 'L')
+	{
 		nb = va_arg(*ap, long double);
-	nb = va_arg(*ap, double);
-	res = ft_fitoa(nb);
+		res = ft_fitoa(nb);
+	}	
+	else
+	{
+		n = va_arg(*ap, double);
+		res = ft_fitoa(n);
+	}
 	return (res);
 }
 
@@ -96,14 +112,14 @@ char    *type_id(char *res, va_list *ap, t_spec *spec)
 	int	nb;
 	
 	nb = va_arg(*ap, long long);
-	if (spec->size[0] == 'h')
-		res = ft_itoa((short int)nb);
-	if (spec->size[0] == 'l' && spec->size[1] == 'l')
-		res = ft_itoa((long long)nb);
-	if (spec->size[0] == 'l')
-		res = ft_itoa((long)nb);
 	if (spec->size[0] == 'h' && spec->size[1] == 'h')
 		res = ft_itoa((char)nb);
+	else if (spec->size[0] == 'h' && spec->size[1] != 'h')
+		res = ft_itoa((short int)nb);
+	else if (spec->size[0] == 'l' && spec->size[1] == 'l')
+		res = ft_itoa((long long)nb);
+	else if (spec->size[0] == 'l' && spec->size[1] != 'l')
+		res = ft_itoa((long)nb);
 	else
 		res = ft_itoa(nb);
 	return (res);

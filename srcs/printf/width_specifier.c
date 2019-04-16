@@ -10,10 +10,10 @@ char    *width_specifier(char *res, t_spec *spec)
 	len = (int)ft_strlen((char*)res);
 	if (len < spec->width)
 	{
-		if (!(ret = ft_strnew((int)spec->precision)))
+		if (!(ret = ft_strnew((int)spec->width)))
 			return (NULL);
 		while (i < spec->width - len)
-			ret[i] = ' ';
+			ret[i++] = ' ';
 		ft_strcpy(&ret[i], (char*)res);
 		free((char*)res);
 		return (ret);

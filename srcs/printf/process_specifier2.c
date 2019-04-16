@@ -9,7 +9,7 @@ void	process_specifier(char *format, va_list *ap)
 	int		flag;
 
 	dot = 0;
-	flag = 0;
+	flag = -1;
 	k = 0;
 	find_width_param(&format[i], ap, &spec);
 	while (format[i] && format[i] != 'c' && format[i] != 's' && format[i] != 'p' && format[i] != 'd' && format[i] != 'i' && format[i] !='o' && format[i] != 'u' && format[i] != 'x' && format[i] != 'X' && format[i] != 'f')
@@ -25,12 +25,17 @@ void	process_specifier(char *format, va_list *ap)
 	if (format[j] == 'h' || format[j] == 'l' || format[j] == 'L')
 	{
 		if (format[j - 1] == 'l' || format[j - 1] == 'h')
+		{
+			spec.size[1] = format[j];
 			j--;
-		spec.size = &format[j];
+		}
+		else
+			spec.size[1] = '\0';
+		spec.size[0] = format[j];
 		format[j] = '\0';
 	}
 	else
-		spec.size = NULL;
+		spec.size[0] = '\0';
 	if (dot)
 	{
 		while(format[j] != '.')
@@ -45,26 +50,30 @@ void	process_specifier(char *format, va_list *ap)
 	}
 	else
 		spec.precision = -1;
-	while (format[j - 1] != '%')
+	while (format[j] != '%')
 		j--;
+	j++;
 	while (format[j] == '0' || format[j] == '#' || format[j] == '+'
-			|| format[j] == '-')
+			|| format[j] == '-' || format[j] == ' ')
 	{
 		while (k < 5)
 		{
 			if (spec.flags[k] == format[j])
 				break ;
+			k++;
 		}
 		if (k == 5)
 		{
-			spec.flags[flag] = format[j];
 			flag++;
+			spec.flags[flag] = format[j];
 		}
 		j++;
 		k = 0;
 	}
 	if (format[j] <= '9' && format[j] >= '1')
-		spec.width = ft_atoi((char*)(&format[j]));	
+		spec.width = ft_atoi((char*)(&format[j]));
+	else
+		spec.width = -1;
 	call_specifier(ap, &spec, flag);
 }
 
@@ -93,23 +102,22 @@ void	find_width_param(char *format, va_list *ap, t_spec *spec)
 		spec->width = va_arg(*ap, int);
 }
 
-void    call_specifier(va_list *ap, t_spec *spec, int flag)
+void    call_specifier(va_list *ap, t_spec *spec, int flag) // что в каком порядке обрабатывать??!!!
 {
 	char	*res;
 	int		count;
 
-	count = 0;
+	count = -1;
 	res = type_specifier(spec, ap);
-	if (spec->precision != -1)
-		res = precise_specifier(res, spec);
-	
-	if (spec->width != -1)
-		res = width_specifier(res, spec);
 	while (count < flag)
 	{
 		res = flag_specifier(res, spec, flag);
 		count++;
 	}
+	if (spec->precision != -1)
+		res = precise_specifier(res, spec); // Непонятное что-то с  точностью и шириной. Что если точность меньше?
+	if (spec->width != -1)
+		res = width_specifier(res, spec);
 	print_param(res);
 	free((char*)res);
 }

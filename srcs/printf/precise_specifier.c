@@ -26,7 +26,7 @@ char    *other_precise(char *res, t_spec *spec)
 		if (!(ret = ft_strnew((int)spec->precision)))
 			return (NULL);
 		while (i < spec->precision - len)
-			ret[i] = '0';
+			ret[i++] = '0';
 		ft_strcpy(&ret[i], (char*)res);
 		free((char*)res);
 		return (ret);

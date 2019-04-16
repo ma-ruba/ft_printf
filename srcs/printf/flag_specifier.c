@@ -10,7 +10,8 @@ char	*flag_specifier(char *res, t_spec *spec, int flag)
 		res = plus_flag(res, spec);
 	if (spec->flags[flag] == '#')
 		res = hash_flag(res, spec);
-	res = space_flag(res, spec);
+	if (spec->flags[flag] == ' ')
+		res = space_flag(res, spec);
 	return (res);
 }
 
@@ -78,6 +79,7 @@ char	*plus_flag(char *res, t_spec *spec)
             ret[0] = '+';
 			ft_strcpy(&ret[1], (char*)res);
 			free((char*)res);
+			return (ret);
 		}
 	}
 	return (res);
@@ -96,6 +98,7 @@ char	*hash_flag(char *res, t_spec *spec)
 		ret[0] = '0';
 		ft_strcpy(&ret[1], (char*)res);
 		free((char*)res);
+		return (ret);
 	}
 	if (spec->type == 'x' || spec->type == 'X')
 	{
@@ -108,6 +111,7 @@ char	*hash_flag(char *res, t_spec *spec)
 			ret[1] = 'X';
 		ft_strcpy(&ret[2], (char*)res);
 		free((char*)res);
+		return (ret);
 	}
 	return (res);
 }
@@ -135,6 +139,7 @@ char	*space_flag(char *res, t_spec *spec)
             ret[0] = ' ';
 			ft_strcpy(&ret[1], (char*)res);
 			free((char*)res);
+			return (ret);
 		}
 	}
 	return (res);

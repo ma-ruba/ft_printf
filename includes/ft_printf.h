@@ -14,7 +14,7 @@ typedef struct  s_spec
     char        type;
     int         precision;
     int         width;
-    char        *size;
+    char        size[2];
     char        flags[5];
 }               t_spec;
 
@@ -23,7 +23,7 @@ int	    ft_printf(const char *format, ...);
 void	print_and_smth(const char *format, va_list *ap);
 int	    exeption(char const *format);
 void	process_specifier(char *format, va_list *ap);
-char    *type_specifier(t_spec *spec, va_list *ap); // функция возвращает указатель на char. Это значит, что надо выделить память mallocом!
+char    *type_specifier(t_spec *spec, va_list *ap);
 char    *width_specifier(char *res, t_spec *spec);
 char    *precise_specifier(char *res, t_spec *spec);
 char    *flag_specifier(char *res, t_spec *spec, int flag);

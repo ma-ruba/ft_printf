@@ -33,7 +33,7 @@ void	print_and_smth(const char *format, va_list *ap) //25
 	while (format[i])
 	{
 		if (find_specifier(&format[i]))
-			process_specifier(&copy[i], ap);
+			process_specifier(copy, ap);
 		else
 		{
 			if (exeption(format))
