@@ -91,6 +91,7 @@ void    print_param(char *res)
 		i++;
 		ret++;
 	}
+	ret -= zero;
 }
 
 void	find_width_param(char *format, va_list *ap, t_spec *spec)

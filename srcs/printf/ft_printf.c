@@ -28,6 +28,7 @@ int		ft_printf(const char *format, ...)
 	va_list	ap;
 
 	ret = 0;
+	zero = 0;
 	va_start(ap, format);
 	print_and_smth(format, &ap);
 	va_end(ap);

@@ -8,6 +8,7 @@
 
 int     ret;
 int     i;
+int     zero;
 
 typedef struct  s_spec
 {

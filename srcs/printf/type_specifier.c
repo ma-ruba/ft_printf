@@ -7,18 +7,18 @@ char    *type_specifier(t_spec *spec, va_list *ap)
 	res = NULL;
 	if (spec->type == 'c')
 		res = type_c(res, ap);
-	if (spec->type == 's')
+	else if (spec->type == 's')
 		res = type_s(res, ap);
-	if (spec->type == 'p')
+	else if (spec->type == 'p')
 		res = type_p(res, ap, spec);
-	if (spec->type == 'o' || spec->type == 'u'
-		|| spec->type == 'x' || spec->type == 'X')
+	else if (spec->type == 'o' || spec->type == 'u'
+			|| spec->type == 'x' || spec->type == 'X')
 		res = type_ouxX(res, spec, ap);
-	if (spec->type == 'f')
+	else if (spec->type == 'f')
 		res = type_f(res, ap, spec);
-	if (spec->type == 'i' || spec->type == 'd')
+	else if (spec->type == 'i' || spec->type == 'd')
 		res = type_id(res, ap, spec);
-	if (spec->type == '%')
+	else if (spec->type == '%')
 		res = type_percent(res);
 	return (res);
 }
@@ -62,8 +62,15 @@ char	*type_c(char *res, va_list *ap)
 {
 	char	ch;
 
-	res = (char*)malloc(2 * sizeof(char));
 	ch = va_arg(*ap, int);
+	if (!ch)
+	{
+		res = ft_strnew(2);
+		ft_strcpy(res, "^@");
+		zero++;
+		return (res);
+	}
+	res = (char*)malloc(2 * sizeof(char));
 	res[0] = ch;
 	res[1] = '\0';
 	return (res);
@@ -75,6 +82,12 @@ char    *type_s(char *res, va_list *ap)
 	int		len;
 
 	s = va_arg(*ap, char*);
+	if (s == NULL)
+	{
+		res = ft_strnew(6);
+		ft_strcpy(res, "(null)");
+		return (res);
+	}
     len = (int)ft_strlen((char *)s);
     res = (char*)malloc((len + 1) * sizeof(char));
     ft_strcpy(res, s);
