@@ -33,8 +33,8 @@ char	*type_percent(char *res)
 
 char	*type_ouxX(char *res, t_spec *spec, va_list *ap)
 {
-	int	nb;
-	int	base;
+	unsigned long long	nb;
+	int					base;
 
 	if (spec->type == 'o')
 		base = 8;
@@ -46,15 +46,15 @@ char	*type_ouxX(char *res, t_spec *spec, va_list *ap)
 		base = 16;
 	nb = va_arg(*ap, unsigned long long);
 	if (spec->size[0] == 'h' && spec->size[1] == 'h')
-		res = ft_itoa_base((short)nb, base, spec);
-	if (spec->size[0] == 'h')
+		res = ft_itoa_base((unsigned char)nb, base, spec);
+	else if (spec->size[0] == 'h' && spec->size[1] != 'h')
 		res = ft_itoa_base((unsigned short int)nb, base, spec);
-	if (spec->size[0] == 'l' && spec->size[1] == 'l')
+	else if (spec->size[0] == 'l' && spec->size[1] == 'l')
 		res = ft_itoa_base((unsigned long long)nb, base, spec);
-	if (spec->size[0] == 'l')
-		res = ft_itoa_base((unsigned long)nb, base, spec);
+	else if (spec->size[0] == 'l' && spec->size[1] != 'l')
+		res = ft_itoa_base((unsigned long long)nb, base, spec);
 	else
-		res = ft_itoa_base(nb, base, spec);
+		res = ft_itoa_base((unsigned int)nb, base, spec);
 	return (res);
 }
 
@@ -74,9 +74,9 @@ char    *type_s(char *res, va_list *ap)
 	char	*s;
 	int		len;
 
-    len = (int)ft_strlen((char *)res);
+	s = va_arg(*ap, char*);
+    len = (int)ft_strlen((char *)s);
     res = (char*)malloc((len + 1) * sizeof(char));
-    s = va_arg(*ap, char*);
     ft_strcpy(res, s);
 	return (res);
 }
@@ -119,7 +119,7 @@ char	*type_f(char *res, va_list *ap, t_spec *spec)
 
 char    *type_id(char *res, va_list *ap, t_spec *spec)
 {
-	int	nb;
+	long long	nb;
 	
 	nb = va_arg(*ap, long long);
 	if (spec->size[0] == 'h' && spec->size[1] == 'h')
@@ -131,6 +131,6 @@ char    *type_id(char *res, va_list *ap, t_spec *spec)
 	else if (spec->size[0] == 'l' && spec->size[1] != 'l')
 		res = ft_itoa((long)nb);
 	else
-		res = ft_itoa(nb);
+		res = ft_itoa((int)nb);
 	return (res);
 }

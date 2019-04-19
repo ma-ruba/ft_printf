@@ -102,6 +102,8 @@ char	*hash_flag(char *res, t_spec *spec)
 	}
 	if (spec->type == 'x' || spec->type == 'X')
 	{
+		if (res[0] == '0')
+			return (res);
 		if (!(ret = ft_strnew(len + 2)))
 			return (NULL);
 		ret[0] = '0';

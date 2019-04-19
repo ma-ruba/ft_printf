@@ -12,7 +12,7 @@ void	print_and_smth(const char *format, va_list *ap)
 	while (format[i])
 	{
 		if (format[i] == '%')
-			process_specifier(&copy[i++], ap);
+			process_specifier(copy, ap);
 		else
 		{
 			write(1, &format[i], 1);

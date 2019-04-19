@@ -22,8 +22,11 @@ char	*ft_itoa_neg_base(char *str, t_spec *spec, int base)
 	int			count;
 	int			bla;
 
-	count = 7;
-	if(!(ret = ft_strnew(8)))
+	if (spec->size[0] == 'l' && spec->size[1] == 'l')
+		count = 15;
+	else
+		count = 7;
+	if(!(ret = ft_strnew(count + 1)))
 		return (NULL);
 	len = ft_strlen(str);
 	while (len)

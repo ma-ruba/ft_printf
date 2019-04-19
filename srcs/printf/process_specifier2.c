@@ -12,6 +12,7 @@ void	process_specifier(char *format, va_list *ap)
 	flag = -1;
 	k = 0;
 	find_width_param(&format[i], ap, &spec);
+	i++;
 	while (format[i] && format[i] != 'c' && format[i] != 's' && format[i] != 'p' && format[i] != 'd'
 			&& format[i] != 'i' && format[i] !='o' && format[i] != 'u' && format[i] != 'x' && format[i]
 			!= 'X' && format[i] != 'f' && format[i] != '%')
@@ -113,8 +114,8 @@ void    call_specifier(va_list *ap, t_spec *spec, int flag) // что в как�
 	res = type_specifier(spec, ap);
 	while (count < flag)
 	{
-		res = flag_specifier(res, spec, flag);
 		count++;
+		res = flag_specifier(res, spec, count);
 	}
 	if (spec->precision != -1)
 		res = precise_specifier(res, spec); // Непонятное что-то с  точностью и шириной. Что если точность меньше?
