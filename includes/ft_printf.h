@@ -21,7 +21,6 @@ typedef struct  s_spec
 
 int	    ft_printf(const char *format, ...);
 void	print_and_smth(const char *format, va_list *ap);
-int	    exeption(char const *format);
 void	process_specifier(char *format, va_list *ap);
 char    *type_specifier(t_spec *spec, va_list *ap);
 char    *width_specifier(char *res, t_spec *spec);
@@ -30,6 +29,7 @@ char    *flag_specifier(char *res, t_spec *spec, int flag);
 void    print_param(char *res);
 char    *s_precise(char *res, t_spec *spec);
 char    *f_precise(char *res, t_spec *spec);
+char	*type_percent(char *res);
 char    *other_precise(char *res, t_spec *spec);
 void    call_specifier(va_list *ap, t_spec *spec, int flag);
 char    *type_ouxX(char *res, t_spec *spec, va_list *ap);
@@ -45,6 +45,7 @@ char	*hash_flag(char *res, t_spec *spec);
 char	*space_flag(char *res, t_spec *spec);
 char	*ft_fitoa(long double num);
 char	*ft_itoa_base(long long num, int base, t_spec  *spec);
+char	*ft_itoa_neg_base(char *str, t_spec *spec, int base);
 void	find_width_param(char *format, va_list *ap, t_spec *spec);
 
 #endif

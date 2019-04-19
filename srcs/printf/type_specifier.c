@@ -18,6 +18,16 @@ char    *type_specifier(t_spec *spec, va_list *ap)
 		res = type_f(res, ap, spec);
 	if (spec->type == 'i' || spec->type == 'd')
 		res = type_id(res, ap, spec);
+	if (spec->type == '%')
+		res = type_percent(res);
+	return (res);
+}
+
+char	*type_percent(char *res)
+{
+	res = (char*)malloc(2 * sizeof(char));
+	res[0] = '%';
+	res[1] = '\0';
 	return (res);
 }
 

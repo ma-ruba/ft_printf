@@ -12,7 +12,9 @@ void	process_specifier(char *format, va_list *ap)
 	flag = -1;
 	k = 0;
 	find_width_param(&format[i], ap, &spec);
-	while (format[i] && format[i] != 'c' && format[i] != 's' && format[i] != 'p' && format[i] != 'd' && format[i] != 'i' && format[i] !='o' && format[i] != 'u' && format[i] != 'x' && format[i] != 'X' && format[i] != 'f')
+	while (format[i] && format[i] != 'c' && format[i] != 's' && format[i] != 'p' && format[i] != 'd'
+			&& format[i] != 'i' && format[i] !='o' && format[i] != 'u' && format[i] != 'x' && format[i]
+			!= 'X' && format[i] != 'f' && format[i] != '%')
 	{
 		if (format[i] == '.')
 			dot = 1;
