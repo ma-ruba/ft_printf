@@ -127,7 +127,7 @@ char	*space_flag(char *res, t_spec *spec)
 	i = 0;
 	while (spec->flags[i])
 	{
-		if (spec->flags[i] == '-')
+		if (spec->flags[i] == '-' || spec->flags[i] == '+')
 			return (res);
 		i++;
 	}
