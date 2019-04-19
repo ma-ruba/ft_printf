@@ -48,5 +48,6 @@ char	*ft_fitoa(long double num);
 char	*ft_itoa_base(long long num, int base, t_spec  *spec);
 char	*ft_itoa_neg_base(char *str, t_spec *spec, int base);
 void	find_width_param(char *format, va_list *ap, t_spec *spec);
+int     check_minus(char *res, char **point);
 
 #endif

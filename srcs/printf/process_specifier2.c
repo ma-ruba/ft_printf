@@ -80,11 +80,24 @@ void	process_specifier(char *format, va_list *ap)
 	call_specifier(ap, &spec, flag);
 }
 
+static void	ft_swapp(char *a, char *b)
+{
+	int	tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
 void    print_param(char *res)
 {
-	int i;
+	int 	i;
+	char	*point;
 
 	i = 0;
+	point = NULL;
+	if (check_minus(res, &point) && res[0] != '-' && res[0] == '0')
+		ft_swapp(&res[0], point);
 	while (res[i])
 	{
 		write(1, &res[i], 1);
@@ -92,6 +105,7 @@ void    print_param(char *res)
 		ret++;
 	}
 	ret -= zero;
+	zero = 0;
 }
 
 void	find_width_param(char *format, va_list *ap, t_spec *spec)

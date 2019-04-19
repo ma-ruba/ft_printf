@@ -50,29 +50,58 @@ char	*minus_flag(char *res, t_spec *spec)
 {
 	int		len;
     char 	*ret;
+	int		size;
 
     len = (int)ft_strlen((char*)res);
+	size = spec->width;
+	if (zero)
+	{
+		len--;
+		size++;
+	}
 	if (len < spec->width)
 	{
-		if (!(ret = ft_strnew((int)spec->width)))
+		if (!(ret = ft_strnew((int)size)))
 			return (NULL);
 		ft_strcpy(&ret[0], (char*)res);
-		ft_memset((void*)(&ret[len]), ' ', spec->width - len);
+		if (zero)
+			ft_memset((void*)(&ret[len + 1]), ' ', spec->width - len);
+		else
+			ft_memset((void*)(&ret[len]), ' ', spec->width - len);
 		free((char*)res);
 		return (ret);
 	}
 	return (res);
 }
 
+int check_minus(char *res, char **point)
+{
+	int i;
+
+	i = 0;
+	while(res[i])
+	{
+		if (res[i] == '-')
+		{
+			*point = &res[i];
+			return (1);
+		}
+		i++;
+	}
+	return (0);	
+}
+
 char	*plus_flag(char *res, t_spec *spec)
 {
 	int		len;
     char	*ret;
+	char	*point;
 
+	point = NULL;
     len = (int)ft_strlen((char*)res);
 	if (spec->type == 'i' || spec->type == 'd' || spec->type == 'u')
 	{
-		if (res[0] != '-')
+		if (!check_minus(res, &point))
 		{
 			 if (!(ret = ft_strnew(len + 1)))
 				return (NULL);
