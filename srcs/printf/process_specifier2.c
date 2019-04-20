@@ -98,6 +98,8 @@ void    print_param(char *res)
 	point = NULL;
 	if (check_minus(res, &point) && res[0] != '-' && res[0] == '0')
 		ft_swapp(&res[0], point);
+	if (check_0x(res, &point) && res[0] == '0')
+		ft_swapp(&res[1], point);
 	while (res[i])
 	{
 		write(1, &res[i], 1);

@@ -74,23 +74,6 @@ char	*minus_flag(char *res, t_spec *spec)
 	return (res);
 }
 
-int check_minus(char *res, char **point)
-{
-	int i;
-
-	i = 0;
-	while(res[i])
-	{
-		if (res[i] == '-')
-		{
-			*point = &res[i];
-			return (1);
-		}
-		i++;
-	}
-	return (0);	
-}
-
 char	*plus_flag(char *res, t_spec *spec)
 {
 	int		len;
@@ -99,16 +82,24 @@ char	*plus_flag(char *res, t_spec *spec)
 
 	point = NULL;
     len = (int)ft_strlen((char*)res);
-	if (spec->type == 'i' || spec->type == 'd' || spec->type == 'u')
+	if (spec->type == 'i' || spec->type == 'd')
 	{
 		if (!check_minus(res, &point))
 		{
-			 if (!(ret = ft_strnew(len + 1)))
-				return (NULL);
-            ret[0] = '+';
-			ft_strcpy(&ret[1], (char*)res);
-			free((char*)res);
-			return (ret);
+			if (res[0] == '0' && len >= 2)
+			{
+				res[0] = '+';
+				return (res);
+			}
+			else
+			{
+				if (!(ret = ft_strnew(len + 1)))
+					return (NULL);
+				ret[0] = '+';
+				ft_strcpy(&ret[1], (char*)res);
+				free((char*)res);
+				return (ret);
+			}
 		}
 	}
 	return (res);

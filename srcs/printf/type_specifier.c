@@ -136,13 +136,13 @@ char    *type_id(char *res, va_list *ap, t_spec *spec)
 	
 	nb = va_arg(*ap, long long);
 	if (spec->size[0] == 'h' && spec->size[1] == 'h')
-		res = ft_itoa((char)nb);
+		res = ft_itoa_base((char)nb, 10, spec);
 	else if (spec->size[0] == 'h' && spec->size[1] != 'h')
-		res = ft_itoa((short int)nb);
+		res = ft_itoa_base((short int)nb, 10, spec);
 	else if (spec->size[0] == 'l' && spec->size[1] == 'l')
-		res = ft_itoa((long long)nb);
+		res = ft_itoa_base((long long)nb, 10, spec);
 	else if (spec->size[0] == 'l' && spec->size[1] != 'l')
-		res = ft_itoa((long)nb);
+		res = ft_itoa_base((long long)nb, 10, spec);
 	else
 		res = ft_itoa((int)nb);
 	return (res);

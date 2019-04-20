@@ -18,9 +18,13 @@ char    *other_precise(char *res, t_spec *spec)
 	char    *ret;
 	int		len;
 	int		i;
+	char	*point;
 
 	i = 0;
+	point = NULL;
 	len = (int)ft_strlen((char*)res);
+	if (check_minus(res, &point))
+		spec->precision += 1;
 	if (len < spec->precision)
 	{
 		if (!(ret = ft_strnew((int)spec->precision)))

@@ -83,7 +83,12 @@ char	*ft_itoa_base(long long num, int base, t_spec *spec)
 
 	nb = num;
 	if (num == -9223372036854775807 - 1)
-		str = "-9223372036854775808";
+	{
+		if(!(str = ft_strnew(20)))
+			return (NULL);
+		ft_strcpy(str, "-9223372036854775808");
+		return (str);
+	}
 	i = ft_digits(num, base);
 	if (num < 0 && base == 10)
 		i++;
