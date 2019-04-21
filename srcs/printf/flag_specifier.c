@@ -51,9 +51,11 @@ char	*minus_flag(char *res, t_spec *spec)
 	int		len;
     char 	*ret;
 	int		size;
-
+	
     len = (int)ft_strlen((char*)res);
 	size = spec->width;
+	if (spec->precision > spec->width)
+        return (res);
 	if (zero)
 	{
 		len--;
@@ -113,11 +115,22 @@ char	*hash_flag(char *res, t_spec *spec)
 	len = (int)ft_strlen((char*)res);
 	if (spec->type == 'o')
 	{
-		if (!(ret = ft_strnew(len + 1)))
-			return (NULL);
-		ret[0] = '0';
-		ft_strcpy(&ret[1], (char*)res);
-		free((char*)res);
+		if (res[len - 1] == ' ')
+		{
+			if (!(ret = ft_strnew(len)))
+				return (NULL);
+			ft_strncpy(&ret[1], res, len - 1);
+			ret[0] = '0';
+			free((char*)res);
+		}
+		else
+		{
+			if (!(ret = ft_strnew(len + 1)))
+				return (NULL);
+			ret[0] = '0';
+			ft_strcpy(&ret[1], (char*)res);
+			free((char*)res);
+		}
 		return (ret);
 	}
 	if (spec->type == 'x' || spec->type == 'X')

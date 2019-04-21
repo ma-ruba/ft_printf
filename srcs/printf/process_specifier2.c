@@ -132,6 +132,8 @@ void    call_specifier(va_list *ap, t_spec *spec, int flag) // что в как�
 	while (count < flag)
 	{
 		count++;
+		if ((spec->flags[count] == '-' || spec->flags[count] == ' ' || spec->flags[count] == '+') && spec->type != 's')
+            res = precise_specifier(res, spec);
 		res = flag_specifier(res, spec, count);
 	}
 	if (spec->precision != -1)

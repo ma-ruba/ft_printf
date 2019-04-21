@@ -10,6 +10,16 @@ char    *width_specifier(char *res, t_spec *spec)
 	i = 0;
 	len = (int)ft_strlen((char*)res);
 	size = spec->width;
+	while (spec->flags[i])
+	{
+		if (spec->flags[i] == '-')
+		{
+			res = minus_flag(res, spec);
+			return (res);
+		}
+		i++;
+	}
+	i = 0;
 	if (zero)
 	{
 		len--;

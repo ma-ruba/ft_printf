@@ -2,7 +2,7 @@ NAME := libftprintf.a
 
 PFDIR := printf/
 PF :=   flag_specifier	ft_printf		precise_specifier	process_specifier2 \
-		type_specifier		width_specifier
+		type_specifier		width_specifier check_smth
 
 LIBDIR := libft/
 LIB :=	ft_atoi ft_bzero ft_isalnum ft_isalpha ft_isascii \
