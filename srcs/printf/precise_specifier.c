@@ -25,6 +25,16 @@ char    *other_precise(char *res, t_spec *spec)
 	len = (int)ft_strlen((char*)res);
 	if (check_minus(res, &point))
 		spec->precision += 1;
+	if (spec->precision == 0 && res[0] == '0' && res[1] == '\0')
+	{
+		res[0] = '\0';
+		return (res);
+	}
+	if (spec->precision == 0 && res[1] == '0' && res[2] == '\0')
+	{
+		res[1] = '\0';
+		return (res);
+	}
 	if (len < spec->precision)
 	{
 		if (!(ret = ft_strnew((int)spec->precision)))

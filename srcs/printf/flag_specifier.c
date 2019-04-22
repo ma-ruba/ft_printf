@@ -4,13 +4,13 @@ char	*flag_specifier(char *res, t_spec *spec, int flag)
 {
 	if (spec->flags[flag] == '0')
 		res = zero_flag(res, spec);
-	if (spec->flags[flag] == '-')
+	else if (spec->flags[flag] == '-')
 		res = minus_flag(res, spec);
-	if (spec->flags[flag] == '+')
+	else if (spec->flags[flag] == '+')
 		res = plus_flag(res, spec);
-	if (spec->flags[flag] == '#')
+	else if (spec->flags[flag] == '#')
 		res = hash_flag(res, spec);
-	if (spec->flags[flag] == ' ')
+	else if (spec->flags[flag] == ' ')
 		res = space_flag(res, spec);
 	return (res);
 }
@@ -88,10 +88,19 @@ char	*plus_flag(char *res, t_spec *spec)
 	{
 		if (!check_minus(res, &point))
 		{
-			if (res[0] == '0' && len >= 2)
+			if (res[1] == '0' && len >= 2)
 			{
 				res[0] = '+';
 				return (res);
+			}
+			else if (res[len - 1] == ' ')
+			{
+				if (!(ret = ft_strnew(len)))
+					return (NULL);
+				ft_strncpy(&ret[1], res, len - 1);
+				ret[0] = '+';
+				free((char*)res);
+				return (ret);
 			}
 			else
 			{

@@ -110,6 +110,15 @@ void    print_param(char *res)
 	zero = 0;
 }
 
+void	clean_struct(t_spec *spec)
+{
+	spec->type = '\0';
+	spec->precision = -1;
+	spec->width = -1;
+	spec->size[0] = '\0';
+	spec->flags[0] = '\0';
+}
+
 void	find_width_param(char *format, va_list *ap, t_spec *spec)
 {
 	int	j;
@@ -141,5 +150,6 @@ void    call_specifier(va_list *ap, t_spec *spec, int flag) // что в как�
 	if (spec->width != -1)
 		res = width_specifier(res, spec);
 	print_param(res);
+	clean_struct(spec);
 	free((char*)res);
 }
