@@ -6,11 +6,34 @@ char    *precise_specifier(char *res, t_spec *spec)
 	
 	if (spec->type == 'f')
 		ret = f_precise(res, spec);
-	if (spec->type == 's')
+	else if (spec->type == 's')
 		ret = s_precise(res, spec);
+	else if (spec->type == 'p')
+		ret = p_precise(res, spec);
 	else
 		ret = other_precise(res, spec);
 	return (ret);
+}
+
+char	*p_precise(char *res, t_spec *spec)
+{
+	char    *ret;
+	int		len;
+	int		i;
+
+	i = 0;
+	len = (int)ft_strlen((char*)res) - 2;
+	if (len < spec->precision)
+	{
+		if (!(ret = ft_strnew((int)spec->precision + 2)))
+			return (NULL);
+		while (i < spec->precision - len)
+			ret[i++] = '0';
+		ft_strcpy(&ret[i], (char*)res);
+		free((char*)res);
+		return (ret);
+	}
+	return (res);
 }
 
 char    *other_precise(char *res, t_spec *spec)

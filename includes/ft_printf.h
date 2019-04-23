@@ -51,5 +51,6 @@ void	find_width_param(char *format, va_list *ap, t_spec *spec);
 int     check_minus(char *res, char **point);
 int     check_0x(char *res, char **point);
 void	clean_struct(t_spec *spec);
+char	*p_precise(char *res, t_spec *spec);
 
 #endif

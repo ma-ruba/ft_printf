@@ -105,9 +105,11 @@ char	*type_p(char *res, va_list *ap, t_spec *spec)
 	len = (int)ft_strlen((char*)res);
 	if (!(ret = ft_strnew(len + 2)))
 		return (NULL);
+	ft_strcpy(&ret[2], (char*)res);
 	ret[0] = '0';
 	ret[1] = 'x';
-	ft_strcpy(&ret[2], (char*)res);
+	if (ret[2] == '0' && ret[3] == '\0')
+		ret[2] = '\0';
 	free((char*)res);
 	return (ret);
 }

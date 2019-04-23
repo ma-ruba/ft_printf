@@ -31,7 +31,7 @@ char	*zero_flag(char *res, t_spec *spec)
 	}
 	if (((spec->type == 'i' || spec->type == 'd' || spec->type == 'u'
 		|| spec->type == 'o' || spec->type == 'X' || spec->type == 'x')
-		&& spec->precision == -1) || spec->type == 'f')
+		&& spec->precision == -1) || spec->type == 'f' || spec->type == 'p' || spec->type == 's' || spec->type == 'c')
 	{
 		if (len < spec->width)
 		{
