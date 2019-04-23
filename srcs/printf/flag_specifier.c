@@ -170,7 +170,7 @@ char	*space_flag(char *res, t_spec *spec)
 		i++;
 	}
     len = (int)ft_strlen((char*)res);
-	if (spec->type == 'd' || spec->type == 'f')
+	if (spec->type == 'd' || spec->type == 'f' || spec->type == 'i')
 	{
 		if (res[0] != '-')
 		{

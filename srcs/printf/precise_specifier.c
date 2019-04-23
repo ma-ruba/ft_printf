@@ -48,6 +48,8 @@ char    *other_precise(char *res, t_spec *spec)
 	len = (int)ft_strlen((char*)res);
 	if (zero)
 		return (res);
+	if (res[0] == '0' && res[1] == '\0' && spec->type == 'o')
+		return (res);
 	if (check_minus(res, &point))
 		spec->precision += 1;
 	if (spec->precision == 0 && res[0] == '0' && res[1] == '\0')
