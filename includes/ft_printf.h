@@ -19,7 +19,6 @@ typedef struct  s_spec
     char        flags[5];
 }               t_spec;
 
-
 int	    ft_printf(const char *format, ...);
 void	print_and_smth(const char *format, va_list *ap);
 void	process_specifier(char *format, va_list *ap);

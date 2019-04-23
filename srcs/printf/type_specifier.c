@@ -78,18 +78,21 @@ char	*type_oxX(char *res, t_spec *spec, va_list *ap)
 
 char	*type_c(char *res, va_list *ap)
 {
-	char	ch;
+	int	ch;
 
 	ch = va_arg(*ap, int);
-	if (!ch)
+	/*if (!ch)
 	{
 		res = ft_strnew(2);
 		ft_strcpy(res, "^@");
 		zero++;
 		return (res);
-	}
+	}*/
 	res = (char*)malloc(2 * sizeof(char));
+	if (!ch)
+		zero = 1;
 	res[0] = ch;
+	res[0] = (char)res[0];
 	res[1] = '\0';
 	return (res);
 }

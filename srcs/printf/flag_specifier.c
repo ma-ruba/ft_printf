@@ -23,6 +23,8 @@ char	*zero_flag(char *res, t_spec *spec)
 	int		size;
 
 	i = 0;
+	if (zero)
+		spec->width -= 1;
 	size = spec->width;
 	len = (int)ft_strlen((char*)res);
 	while (spec->flags[i])
@@ -30,11 +32,6 @@ char	*zero_flag(char *res, t_spec *spec)
 		if (spec->flags[i] == '-')
 			return (res);
 		i++;
-	}
-	if (zero)
-	{
-		len--;
-		size++;
 	}
 	if (((spec->type == 'i' || spec->type == 'd' || spec->type == 'u'
 		|| spec->type == 'o' || spec->type == 'X' || spec->type == 'x')
@@ -63,20 +60,12 @@ char	*minus_flag(char *res, t_spec *spec)
 	size = spec->width;
 	if (spec->precision > spec->width)
         return (res);
-	if (zero)
-	{
-		len--;
-		size++;
-	}
 	if (len < spec->width)
 	{
 		if (!(ret = ft_strnew((int)size)))
 			return (NULL);
 		ft_strcpy(&ret[0], (char*)res);
-		if (zero)
-			ft_memset((void*)(&ret[len + 1]), ' ', spec->width - len);
-		else
-			ft_memset((void*)(&ret[len]), ' ', spec->width - len);
+		ft_memset((void*)(&ret[len]), ' ', spec->width - len);
 		free((char*)res);
 		return (ret);
 	}
