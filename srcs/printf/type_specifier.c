@@ -11,15 +11,17 @@ char    *type_specifier(t_spec *spec, va_list *ap)
 		res = type_s(res, ap);
 	else if (spec->type == 'p')
 		res = type_p(res, ap, spec);
-	else if (spec->type == 'o' || spec->type == 'u'
+	else if (spec->type == 'o'
 			|| spec->type == 'x' || spec->type == 'X')
-		res = type_ouxX(res, spec, ap);
+		res = type_oxX(res, spec, ap);
 	else if (spec->type == 'f')
 		res = type_f(res, ap, spec);
 	else if (spec->type == 'i' || spec->type == 'd')
 		res = type_id(res, ap, spec);
 	else if (spec->type == '%')
 		res = type_percent(res);
+	else if (spec->type == 'u')
+		res = type_u(res, ap, spec);
 	return (res);
 }
 
@@ -31,18 +33,34 @@ char	*type_percent(char *res)
 	return (res);
 }
 
-char	*type_ouxX(char *res, t_spec *spec, va_list *ap)
+char	*type_u(char *res, va_list *ap, t_spec *spec)
+{
+	unsigned long long	nb;
+
+	nb = va_arg(*ap, unsigned long long);
+	if (spec->size[0] == 'h' && spec->size[1] == 'h')
+		res = ft_uitoa((unsigned char)nb);
+	else if (spec->size[0] == 'h' && spec->size[1] != 'h')
+		res = ft_uitoa((unsigned short int)nb);
+	else if (spec->size[0] == 'l' && spec->size[1] == 'l')
+		res = ft_uitoa((unsigned long long)nb);
+	else if (spec->size[0] == 'l' && spec->size[1] != 'l')
+		res = ft_uitoa((unsigned long long)nb);
+	else
+		res = ft_uitoa((unsigned int)nb);
+	return (res);
+}
+
+char	*type_oxX(char *res, t_spec *spec, va_list *ap)
 {
 	unsigned long long	nb;
 	int					base;
 
 	if (spec->type == 'o')
 		base = 8;
-	if (spec->type == 'u')
-		base = 10;
-	if (spec->type == 'x')
+	else if (spec->type == 'x')
 		base = 16;
-	if (spec->type == 'X')
+	else if (spec->type == 'X')
 		base = 16;
 	nb = va_arg(*ap, unsigned long long);
 	if (spec->size[0] == 'h' && spec->size[1] == 'h')

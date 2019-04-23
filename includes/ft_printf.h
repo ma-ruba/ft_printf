@@ -33,7 +33,7 @@ char    *f_precise(char *res, t_spec *spec);
 char	*type_percent(char *res);
 char    *other_precise(char *res, t_spec *spec);
 void    call_specifier(va_list *ap, t_spec *spec, int flag);
-char    *type_ouxX(char *res, t_spec *spec, va_list *ap);
+char	*type_oxX(char *res, t_spec *spec, va_list *ap);
 char    *type_s(char *res, va_list *ap);
 char	*type_p(char *res, va_list *ap, t_spec *spec);
 char	*type_f(char *res, va_list *ap, t_spec *spec);
@@ -52,5 +52,6 @@ int     check_minus(char *res, char **point);
 int     check_0x(char *res, char **point);
 void	clean_struct(t_spec *spec);
 char	*p_precise(char *res, t_spec *spec);
+char	*type_u(char *res, va_list *ap, t_spec *spec);
 
 #endif

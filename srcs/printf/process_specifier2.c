@@ -96,8 +96,6 @@ void    print_param(char *res)
 
 	i = 0;
 	point = NULL;
-	if (check_minus(res, &point) && res[0] != '-' && res[0] == '0')
-		ft_swapp(&res[0], point);
 	if (check_0x(res, &point) && res[0] == '0')
 		ft_swapp(&res[1], point);
 	while (res[i])
@@ -135,8 +133,10 @@ void    call_specifier(va_list *ap, t_spec *spec, int flag) // что в как�
 {
 	char	*res;
 	int		count;
+	char	*point;
 
 	count = -1;
+	point = NULL;
 	res = type_specifier(spec, ap);
 	while (count < flag)
 	{
@@ -146,7 +146,9 @@ void    call_specifier(va_list *ap, t_spec *spec, int flag) // что в как�
 		res = flag_specifier(res, spec, count);
 	}
 	if (spec->precision != -1)
-		res = precise_specifier(res, spec); // Непонятное что-то с  точностью и шириной. Что если точность меньше?
+		res = precise_specifier(res, spec);
+	if (check_minus(res, &point) && res[0] != '-' && res[0] == '0')
+		ft_swapp(&res[0], point);
 	if (spec->width != -1)
 		res = width_specifier(res, spec);
 	print_param(res);

@@ -58,7 +58,7 @@ char    *other_precise(char *res, t_spec *spec)
 		res[1] = '\0';
 		return (res);
 	}
-	if (len < spec->precision)
+	if (len < spec->precision && spec->type != '%')
 	{
 		if (!(ret = ft_strnew((int)spec->precision)))
 			return (NULL);

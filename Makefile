@@ -17,7 +17,7 @@ LIB :=	ft_atoi ft_bzero ft_isalnum ft_isalpha ft_isascii \
     ft_itoa ft_putendl ft_putnbr ft_putchar_fd ft_putstr_fd \
     ft_putendl_fd ft_putnbr_fd ft_strnew \
 	ft_lstnew ft_lstdelone ft_lstdel ft_lstadd ft_lstiter \
-    ft_itoa_base ft_fitoa
+    ft_itoa_base ft_fitoa ft_uitoa
 
 COMPILE := gcc -Wall -Wextra -Werror -g
 OBJDIR := obj/
