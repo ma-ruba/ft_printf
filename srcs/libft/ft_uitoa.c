@@ -1,32 +1,37 @@
 #include "ft_printf.h"
 
-static size_t		ft_digits(unsigned long long num)
+static size_t		ft_digits(unsigned long long num, int base)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	if (num == 0)
-		i = 1;
+		return (i = 1);
 	while (num)
 	{
-		num /= 10;
 		i++;
+		num /= base;
 	}
 	return (i);
 }
 
-char	*ft_uitoa(unsigned long long num)
+char	*ft_uitoa_base(unsigned long long num, int base, t_spec *spec)
 {
 	char		        *str;
 	size_t		        i;
 
-	i = ft_digits(num);
+	i = ft_digits(num, base);
 	if(!(str = ft_strnew(i)))
 		return (NULL);
 	while(i-- > 0)
 	{
-		str[i] = num % 10 + '0';     
-		num /= 10;
+		if (num % base < 10)
+			str[i] = num % base + '0';
+		else if (spec->type == 'X')
+			str[i] = num % base + 55;
+		else
+			str[i] = num % base + 87;      
+		num /= base;
 	}
 	return (str);
 }

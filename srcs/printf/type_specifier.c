@@ -39,15 +39,15 @@ char	*type_u(char *res, va_list *ap, t_spec *spec)
 
 	nb = va_arg(*ap, unsigned long long);
 	if (spec->size[0] == 'h' && spec->size[1] == 'h')
-		res = ft_uitoa((unsigned char)nb);
+		res = ft_uitoa_base((unsigned char)nb, 10, spec);
 	else if (spec->size[0] == 'h' && spec->size[1] != 'h')
-		res = ft_uitoa((unsigned short int)nb);
+		res = ft_uitoa_base((unsigned short int)nb, 10, spec);
 	else if (spec->size[0] == 'l' && spec->size[1] == 'l')
-		res = ft_uitoa((unsigned long long)nb);
+		res = ft_uitoa_base((unsigned long long)nb, 10, spec);
 	else if (spec->size[0] == 'l' && spec->size[1] != 'l')
-		res = ft_uitoa((unsigned long long)nb);
+		res = ft_uitoa_base((unsigned long long)nb, 10, spec);
 	else
-		res = ft_uitoa((unsigned int)nb);
+		res = ft_uitoa_base((unsigned int)nb, 10, spec);
 	return (res);
 }
 
@@ -64,15 +64,15 @@ char	*type_oxX(char *res, t_spec *spec, va_list *ap)
 		base = 16;
 	nb = va_arg(*ap, unsigned long long);
 	if (spec->size[0] == 'h' && spec->size[1] == 'h')
-		res = ft_itoa_base((unsigned char)nb, base, spec);
+		res = ft_uitoa_base((unsigned char)nb, base, spec);
 	else if (spec->size[0] == 'h' && spec->size[1] != 'h')
-		res = ft_itoa_base((unsigned short int)nb, base, spec);
+		res = ft_uitoa_base((unsigned short int)nb, base, spec);
 	else if (spec->size[0] == 'l' && spec->size[1] == 'l')
-		res = ft_itoa_base((unsigned long long)nb, base, spec);
+		res = ft_uitoa_base((unsigned long long)nb, base, spec);
 	else if (spec->size[0] == 'l' && spec->size[1] != 'l')
-		res = ft_itoa_base((unsigned long long)nb, base, spec);
+		res = ft_uitoa_base((unsigned long long)nb, base, spec);
 	else
-		res = ft_itoa_base((unsigned int)nb, base, spec);
+		res = ft_uitoa_base((unsigned int)nb, base, spec);
 	return (res);
 }
 

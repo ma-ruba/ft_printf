@@ -129,7 +129,7 @@ void	find_width_param(char *format, va_list *ap, t_spec *spec)
 		spec->width = va_arg(*ap, int);
 }
 
-void    call_specifier(va_list *ap, t_spec *spec, int flag) // что в каком порядке обрабатывать??!!!
+void    call_specifier(va_list *ap, t_spec *spec, int flag)
 {
 	char	*res;
 	int		count;

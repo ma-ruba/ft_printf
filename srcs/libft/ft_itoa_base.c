@@ -15,7 +15,7 @@ static size_t		ft_digits(long long num, int base)
 	return (i);
 }
 
-char	*ft_itoa_neg_base(char *str, t_spec *spec, int base)
+/*char	*ft_itoa_neg_base(char *str, t_spec *spec, int base)
 {
 	char		*ret;
 	size_t		len;
@@ -73,7 +73,7 @@ char	*ft_itoa_neg_base(char *str, t_spec *spec, int base)
 	ret[--count] += 1;
 	free((char*)str);
 	return (ret);
-}
+}*/
 
 char	*ft_itoa_base(long long num, int base, t_spec *spec)
 {
@@ -108,7 +108,7 @@ char	*ft_itoa_base(long long num, int base, t_spec *spec)
 			str[i] = nb % base + 87;      
 		nb /= base;
 	}
-	if (num < 0 && base != 10)
-		str = ft_itoa_neg_base(str, spec, base);
+	//if (num < 0 && base != 10)
+		//str = ft_itoa_neg_base(str, spec, base);
 	return (str);
 }
