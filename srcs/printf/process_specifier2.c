@@ -109,6 +109,7 @@ void    print_param(char *res)
 		write(1, "\0", 1);
 		ret++;
 	}
+	zero = 0;
 }
 
 void	clean_struct(t_spec *spec)

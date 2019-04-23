@@ -118,7 +118,7 @@ char	*hash_flag(char *res, t_spec *spec)
     char	*ret;
 	
 	len = (int)ft_strlen((char*)res);
-	if (spec->type == 'o')
+	if (spec->type == 'o' && !(res[0] == '0' && res[1] == '\0'))
 	{
 		if (res[len - 1] == ' ')
 		{
