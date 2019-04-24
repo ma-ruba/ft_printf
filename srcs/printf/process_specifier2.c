@@ -153,6 +153,10 @@ void    call_specifier(va_list *ap, t_spec *spec, int flag)
 		res = precise_specifier(res, spec);
 	if (check_minus(res, &point) && res[0] != '-' && res[0] == '0')
 		ft_swapp(&res[0], point);
+	if (check_plus(res, &point) && res[0] != '+' && res[0] == '0')
+		ft_swapp(&res[0], point);
+	if (check_space(res, &point) && spec->type != 's')
+		ft_swapp(&res[0], point);
 	if (spec->width != -1)
 		res = width_specifier(res, spec);
 	print_param(res);

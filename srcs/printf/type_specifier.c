@@ -81,13 +81,6 @@ char	*type_c(char *res, va_list *ap)
 	int	ch;
 
 	ch = va_arg(*ap, int);
-	/*if (!ch)
-	{
-		res = ft_strnew(2);
-		ft_strcpy(res, "^@");
-		zero++;
-		return (res);
-	}*/
 	res = (char*)malloc(2 * sizeof(char));
 	if (!ch)
 		zero = 1;
@@ -129,8 +122,6 @@ char	*type_p(char *res, va_list *ap, t_spec *spec)
 	ft_strcpy(&ret[2], (char*)res);
 	ret[0] = '0';
 	ret[1] = 'x';
-	if (ret[2] == '0' && ret[3] == '\0')
-		ret[2] = '\0';
 	free((char*)res);
 	return (ret);
 }

@@ -10,6 +10,21 @@ char    *precise_specifier(char *res, t_spec *spec)
 		ret = s_precise(res, spec);
 	else if (spec->type == 'p')
 		ret = p_precise(res, spec);
+	else if (spec->type == 'x' || spec->type == 'X')
+		ret = xX_precise(res, spec);
+	else if (spec->type != 'c')
+		ret = other_precise(res, spec);
+	else
+		ret = res;
+	return (ret);
+}
+
+char	*xX_precise(char *res, t_spec *spec)
+{
+	char	*ret;
+	
+	if (res[0] == '0' && (res[1] == 'x' || res[1] == 'X'))
+		ret = p_precise(res, spec);
 	else
 		ret = other_precise(res, spec);
 	return (ret);
@@ -23,6 +38,11 @@ char	*p_precise(char *res, t_spec *spec)
 
 	i = 0;
 	len = (int)ft_strlen((char*)res) - 2;
+	if (spec->precision == 0 && res[2] == '0' && res[3] == '\0')
+	{
+		res[2] = '\0';
+		return (res);
+	}
 	if (len < spec->precision)
 	{
 		if (!(ret = ft_strnew((int)spec->precision + 2)))
@@ -48,15 +68,15 @@ char    *other_precise(char *res, t_spec *spec)
 	len = (int)ft_strlen((char*)res);
 	if (zero)
 		return (res);
-	if (res[0] == '0' && res[1] == '\0' && spec->type == 'o')
-		return (res);
-	if (check_minus(res, &point))
-		spec->precision += 1;
 	if (spec->precision == 0 && res[0] == '0' && res[1] == '\0')
 	{
 		res[0] = '\0';
 		return (res);
 	}
+	if (res[0] == '0' && res[1] == '\0' && spec->type == 'o')
+		return (res);
+	if (check_minus(res, &point))
+		spec->precision += 1;
 	if (spec->precision == 0 && res[1] == '0' && res[2] == '\0')
 	{
 		res[1] = '\0';

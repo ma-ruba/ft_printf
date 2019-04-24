@@ -19,6 +19,11 @@ char    *width_specifier(char *res, t_spec *spec)
 			res = minus_flag(res, spec);
 			return (res);
 		}
+		if (spec->flags[i] == '0' && (spec->type == 'o' || spec->type == 's'))
+		{
+			res = zero_flag(res, spec);
+			return (res);
+		}
 		i++;
 	}
 	i = 0;

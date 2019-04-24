@@ -35,7 +35,7 @@ char	*zero_flag(char *res, t_spec *spec)
 	}
 	if (((spec->type == 'i' || spec->type == 'd' || spec->type == 'u'
 		|| spec->type == 'o' || spec->type == 'X' || spec->type == 'x')
-		&& spec->precision == -1) || spec->type == 'f' || spec->type == 'p' || spec->type == 's' || spec->type == 'c')
+		&& spec->precision == -1) || spec->type == 'f' || spec->type == 'p' || spec->type == 's' || spec->type == 'c' || spec->type == '%')
 	{
 		if (len < spec->width)
 		{
@@ -118,7 +118,7 @@ char	*hash_flag(char *res, t_spec *spec)
     char	*ret;
 	
 	len = (int)ft_strlen((char*)res);
-	if (spec->type == 'o' && !(res[0] == '0' && res[1] == '\0'))
+	if (spec->type == 'o')
 	{
 		if (res[len - 1] == ' ')
 		{
@@ -130,6 +130,8 @@ char	*hash_flag(char *res, t_spec *spec)
 		}
 		else
 		{
+			if (res[0] == '0' && res[1] == '\0' && spec->precision == -1)
+				return (res);
 			if (!(ret = ft_strnew(len + 1)))
 				return (NULL);
 			ret[0] = '0';
