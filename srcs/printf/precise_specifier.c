@@ -62,9 +62,11 @@ char    *other_precise(char *res, t_spec *spec)
 	int		len;
 	int		i;
 	char	*point;
+	int		precision;
 
 	i = 0;
 	point = NULL;
+	precision = spec->precision;
 	len = (int)ft_strlen((char*)res);
 	if (zero)
 		return (res);
@@ -75,18 +77,18 @@ char    *other_precise(char *res, t_spec *spec)
 	}
 	if (res[0] == '0' && res[1] == '\0' && spec->type == 'o')
 		return (res);
-	if (check_minus(res, &point))
-		spec->precision += 1;
-	if (spec->precision == 0 && res[1] == '0' && res[2] == '\0')
+	if (check_minus(res, &point) && spec->precision > len - 1)
+		precision += 1;
+	if (precision == 0 && res[1] == '0' && res[2] == '\0')
 	{
 		res[1] = '\0';
 		return (res);
 	}
-	if (len < spec->precision && spec->type != '%')
+	if (len < precision && spec->type != '%')
 	{
-		if (!(ret = ft_strnew((int)spec->precision)))
+		if (!(ret = ft_strnew((int)precision)))
 			return (NULL);
-		while (i < spec->precision - len)
+		while (i < precision - len)
 			ret[i++] = '0';
 		ft_strcpy(&ret[i], (char*)res);
 		free((char*)res);

@@ -52,5 +52,11 @@ int     check_0x(char *res, char **point);
 void	clean_struct(t_spec *spec);
 char	*p_precise(char *res, t_spec *spec);
 char	*type_u(char *res, va_list *ap, t_spec *spec);
+char    *xX_precise(char *res, t_spec *spec);
+int     check_plus(char *res, char **point);
+int	    check_space(char *res, char **point);
+void	one_percent_only(char *format);
+int	    check_zero(char *res);
+char	*first_zero(char *res);
 
 #endif

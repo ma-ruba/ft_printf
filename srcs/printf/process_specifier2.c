@@ -21,6 +21,11 @@ void	process_specifier(char *format, va_list *ap)
 			dot = 1;
 		i++;
 	}
+	if (format[i] == '\0')
+	{
+		one_percent_only(format);
+		return ;
+	}
 	spec.type = format[i];
 	j = i;
 	i++;
@@ -78,6 +83,33 @@ void	process_specifier(char *format, va_list *ap)
 	else
 		spec.width = -1;
 	call_specifier(ap, &spec, flag);
+}
+
+void	one_percent_only(char *format)
+{
+	int	i;
+	int	j;
+	char	*str;
+
+	j = 0;
+	i = ft_strlen(format) - 1;
+	while (format[j] != '%')
+		j++;
+	str = ft_strnew(i - j);
+	j = i - j - 1;
+	while (format[i] != '%')
+	{
+		str[j] = format[i];
+		j--;
+		i--;
+	}
+	i = 0;
+	while (str[i])
+	{
+		write(1, &str[i], 1);
+		i++;
+		ret++;
+	}
 }
 
 static void	ft_swapp(char *a, char *b)
@@ -151,10 +183,10 @@ void    call_specifier(va_list *ap, t_spec *spec, int flag)
 	}
 	if (spec->precision != -1)
 		res = precise_specifier(res, spec);
-	if (check_minus(res, &point) && res[0] != '-' && res[0] == '0')
-		ft_swapp(&res[0], point);
-	if (check_plus(res, &point) && res[0] != '+' && res[0] == '0')
-		ft_swapp(&res[0], point);
+	if (check_minus(res, &point) && res[0] != '-' && *(point - 1) == '0')
+		ft_swapp(first_zero(res), point);
+	if (check_plus(res, &point) && res[0] != '+' && *(point - 1) == '0')
+		ft_swapp(first_zero(res), point);
 	if (check_space(res, &point) && spec->type != 's')
 		ft_swapp(&res[0], point);
 	if (spec->width != -1)

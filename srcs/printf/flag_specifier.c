@@ -84,12 +84,12 @@ char	*plus_flag(char *res, t_spec *spec)
 	{
 		if (!check_minus(res, &point))
 		{
-			if (res[1] == '0' && len >= 2)
+			if (spec->precision == -1 && res[0] == '0' && res[1] != ' ' && res[1] != '\0')
 			{
 				res[0] = '+';
 				return (res);
 			}
-			else if (res[len - 1] == ' ')
+			if (res[len - 1] == ' ')
 			{
 				if (!(ret = ft_strnew(len)))
 					return (NULL);
@@ -163,20 +163,27 @@ char	*space_flag(char *res, t_spec *spec)
 	int		len;
     char	*ret;
 	int		i;
+	char	*point;
 
 	i = 0;
+	point = NULL;
 	while (spec->flags[i])
 	{
-		if (spec->flags[i] == '-' || spec->flags[i] == '+')
+		if (spec->flags[i] == '+' && !check_zero(res))
 			return (res);
 		i++;
 	}
     len = (int)ft_strlen((char*)res);
 	if (spec->type == 'd' || spec->type == 'f' || spec->type == 'i')
 	{
-		if (res[0] != '-')
+		if (!check_minus(res, &point))
 		{
-            if (!(ret = ft_strnew(len + 1)))
+			if (res[0] == '0' && res[1] != '\0' && spec->precision == -1)
+			{
+				res[0] = ' ';
+				return (res);
+			}
+			if (!(ret = ft_strnew(len + 1)))
 				return (NULL);
             ret[0] = ' ';
 			ft_strcpy(&ret[1], (char*)res);
