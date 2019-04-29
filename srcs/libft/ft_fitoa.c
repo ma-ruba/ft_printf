@@ -41,15 +41,13 @@ static size_t  dig_after_dot(long double *num, size_t *zero_count)
 	return (count);
 }
 
-char	*ft_fitoa(long double num)
+char	*ft_fitoa(long double num, size_t i)
 {
-	char        *str;
 	long double nb;
-	size_t      i;
-	size_t		tmp;
 	size_t		dig;
 	size_t		zero_count;
 	long long	n;
+	char		*str;
 
 	nb = num;
 	if (num < 0)
@@ -57,9 +55,18 @@ char	*ft_fitoa(long double num)
     dig = dig_after_dot(&nb, &zero_count);
 	n = (int)nb;
 	i = ft_digits(nb) + 1 + zero_count;
-	tmp = i;
 	if (num < 0)
 		i++;
+	str = ft_fitoa2(num, i, dig, n);
+	return (str);
+}
+
+char	*ft_fitoa2(long double num, size_t i, size_t dig, long long	n)
+{
+	char		*str;
+	size_t		tmp;
+
+	tmp = i;
 	if(!(str = ft_strnew(i)))
 		return (NULL);
 	while(i-- > 0)

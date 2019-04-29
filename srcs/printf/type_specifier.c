@@ -130,16 +130,18 @@ char	*type_f(char *res, va_list *ap, t_spec *spec)
 {
 	long double	nb;
 	double		n;
+	size_t      i;
 
+	i = 0;
 	if (spec->size[0] == 'L')
 	{
 		nb = va_arg(*ap, long double);
-		res = ft_fitoa(nb);
+		res = ft_fitoa(nb, i);
 	}	
 	else
 	{
 		n = va_arg(*ap, double);
-		res = ft_fitoa(n);
+		res = ft_fitoa(n, i);
 	}
 	return (res);
 }

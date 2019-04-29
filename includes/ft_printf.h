@@ -12,12 +12,21 @@ int     zero;
 
 typedef struct  s_spec
 {
-    char        type;
-    int         precision;
-    int         width;
-    char        size[2];
-    char        flags[5];
+	char        type;
+	int         precision;
+	int         width;
+	char        size[2];
+	char        flags[5];
 }               t_spec;
+
+typedef struct    s_precise
+{
+	char        *ret;
+	int         len;
+	int         i;
+	char        *point;
+	int			precision;
+}				t_precise;
 
 int	    ft_printf(const char *format, ...);
 void	print_and_smth(const char *format, va_list *ap);
@@ -43,7 +52,8 @@ char	*minus_flag(char *res, t_spec *spec);
 char	*plus_flag(char *res, t_spec *spec);
 char	*hash_flag(char *res, t_spec *spec);
 char	*space_flag(char *res, t_spec *spec);
-char	*ft_fitoa(long double num);
+char	*ft_fitoa(long double num, size_t i);
+char	*ft_fitoa2(long double num, size_t i, size_t dig, long long	n);
 char	*ft_itoa_base(long long num, int base, t_spec  *spec);
 char	*ft_uitoa_base(unsigned long long num, int base, t_spec *spec);
 void	find_width_param(char *format, va_list *ap, t_spec *spec);

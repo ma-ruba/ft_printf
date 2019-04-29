@@ -58,17 +58,14 @@ char	*p_precise(char *res, t_spec *spec)
 
 char    *other_precise(char *res, t_spec *spec)
 {
-	char    *ret;
-	int		len;
-	int		i;
-	char	*point;
-	int		precision;
+	t_precise	params;
+	char		*ret;
 
-	i = 0;
-	point = NULL;
-	precision = spec->precision;
-	len = (int)ft_strlen((char*)res);
-	if (zero)
+    params.i = 0;
+    params.point = NULL;
+	params.precision = spec->precision;
+	params.len = (int)ft_strlen((char*)res);
+	if (zero) 
 		return (res);
 	if (spec->precision == 0 && res[0] == '0' && res[1] == '\0')
 	{
@@ -77,20 +74,20 @@ char    *other_precise(char *res, t_spec *spec)
 	}
 	if (res[0] == '0' && res[1] == '\0' && spec->type == 'o')
 		return (res);
-	if (check_minus(res, &point) && spec->precision > len - 1)
-		precision += 1;
-	if (precision == 0 && res[1] == '0' && res[2] == '\0')
+	if (check_minus(res, &(params.point)) && spec->precision > params.len - 1)
+		params.precision += 1;
+	if (params.precision == 0 && res[1] == '0' && res[2] == '\0')
 	{
 		res[1] = '\0';
 		return (res);
 	}
-	if (len < precision && spec->type != '%')
+	if (params.len < params.precision && spec->type != '%')
 	{
-		if (!(ret = ft_strnew((int)precision)))
+		if (!(ret = ft_strnew((int)params.precision)))
 			return (NULL);
-		while (i < precision - len)
-			ret[i++] = '0';
-		ft_strcpy(&ret[i], (char*)res);
+		while (params.i < params.precision - params.len)
+			ret[(params.i)++] = '0';
+		ft_strcpy(&ret[params.i], (char*)res);
 		free((char*)res);
 		return (ret);
 	}
