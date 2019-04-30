@@ -8,16 +8,16 @@ void	print_and_smth(const char *format, va_list *ap)
 	len = ft_strlen(format);
 	copy = ft_strnew(len);
 	ft_strcpy(copy, format);
-	i = 0;
-	while (format[i])
+	g_i = 0;
+	while (format[g_i])
 	{
-		if (format[i] == '%')
+		if (format[g_i] == '%')
 			process_specifier(copy, ap);
 		else
 		{
-			write(1, &format[i], 1);
-			i++;
-			ret++;
+			write(1, &format[g_i], 1);
+			g_i++;
+			g_ret++;
 		}
 	}
 	free((char*)copy);
@@ -27,10 +27,10 @@ int		ft_printf(const char *format, ...)
 {
 	va_list	ap;
 
-	ret = 0;
-	zero = 0;
+	g_ret = 0;
+	g_zero = 0;
 	va_start(ap, format);
 	print_and_smth(format, &ap);
 	va_end(ap);
-	return (ret);
+	return (g_ret);
 }

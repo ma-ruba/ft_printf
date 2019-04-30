@@ -83,7 +83,7 @@ char	*type_c(char *res, va_list *ap)
 	ch = va_arg(*ap, int);
 	res = (char*)malloc(2 * sizeof(char));
 	if (!ch)
-		zero = 1;
+		g_zero = 1;
 	res[0] = ch;
 	res[0] = (char)res[0];
 	res[1] = '\0';
